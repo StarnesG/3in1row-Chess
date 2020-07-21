@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三子棋</title>
+    <style>
+        #outer{
+            background-color: #cdebc5;
+            width: 800px;
+            height: 800px;
+            margin-left: 400px;
+            list-style:none;
+            padding-left: 0;
+            display: flex;
+        }
+        .box1{
+            width: 198px;
+            height: 198px;
+            border: 1px black solid;
+        }
+        img{
+            width: 198px;
+            height: 198px;
+        }
+        .rule{
+            padding-left: 200px;
+            width: 198px;
+            height: 198px;
+        }
+
+    </style>
+    <script src="./!3inrow.js"></script>
+</head>
+<body>
+    <ul id='outer'>
+        <li class="box">
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+        </li>
+        <li class="box">
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+        </li>
+        <li class="box">
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+        </li>
+        <li class="box">
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+            <div class="box1"><img src="./none.jpg" alt=""></div>
+        </li>
+        <li>
+            <h2 class="rule">规则： <br>
+            双方轮流下子，<br>
+            若不慎其中三子 <br>
+            连成任意的直线 <br>
+            (横、竖、斜) <br>
+            则对方获胜。
+            </h2>
+        </li>
+    </ul>
+</body>
+</html>
