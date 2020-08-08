@@ -56,7 +56,7 @@ export default class Desk extends React.Component {
 
     // 点击格子下棋
     handleClick(e) {
-        if (this.props.playing) {
+        // if (this.props.playing) {
             console.log("clear")
             // var that = this
             e.preventDefault();
@@ -81,7 +81,7 @@ export default class Desk extends React.Component {
                 whitearrow[0].src = blank;
                 this.setState({ flag: true })
             }
-        }
+        // }
 
     }
 

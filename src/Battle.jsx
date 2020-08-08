@@ -7,19 +7,34 @@ export default class Battle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matching: true
+      battleflag:true,
+      matching: true,
+      pltext: "正在寻找对手. . .",
+      word:"开始匹配"
     }
   }
 
 
-
-
-  maChing = (data) => {
+  maChing (){
     let img = document.getElementById('match')
-    let word = document.getElementById('button')
-    img.src = search
-    word.innerHTML = "游 戏 中"
-    this.props.content(data)
+   
+    this.props.getBattle("123")
+    
+    if(this.state.battleflag){
+      this.setState({
+      battleflag:false,
+      word :"游 戏 中",
+      pltext: "正在寻找对手. . .",
+      })
+      img.src = search
+    }else{
+      this.setState({
+        battleflag:true,
+        word :"开始匹配",
+        pltext: "正在寻找对手. . .",
+        })
+        img.src = battle
+    }
   }
 
   render() {
@@ -27,9 +42,12 @@ export default class Battle extends React.Component {
     return (
       <div id="battle">
         <div className="play">123</div>
-        <div className="mate"><img id="match" src={battle} alt="" /></div>
+        <div className="mate">
+          <img id="match" src={battle} alt="" />
+          <div id="pltext">{this.state.pltext}</div>
+        </div>
         <div className="play">321</div>
-        <button id="button" onClick={this.maChing.bind(this,this.state.matching)}>匹配对手</button>
+        <button id="button" onClick={(e)=>{this.maChing(e)}}>{this.state.word}</button>
       </div >
     )
 

@@ -12,28 +12,28 @@ export default class App extends React.Component {
         }
     }
 
-    getBattle(value) {
+    fromBattle(val) {
         this.setState({
-            matching: value
+            matching: val
         })
     }
 
-    openDesk(){
-        setTimeout(() => {
-            this.setState({playing:true})
-            console.log(this.state.playing)
-        }
-            , 1000)
-    }
+    // openDesk(){
+    //     setTimeout(() => {
+    //         this.setState({playing:true})
+    //         console.log(this.state.playing)
+    //     }
+    //         , 1000)
+    // }
 
 
     render() {
-        console.log("start")
+        console.log(this.state.matching)
 
-        if (this.state.matching) {
+        // if (this.state.matching) {
         
-            this.openDesk()
-        }
+        //     this.openDesk()
+        // }
       
 
         return (
@@ -41,7 +41,7 @@ export default class App extends React.Component {
             <div id="all">
                 <Userinfo></Userinfo>
                 <Desk></Desk>
-                <Battle content={this.getBattle.bind(this)}></Battle>
+                <Battle getBattle={(val)=>{this.fromBattle(val)}}></Battle>
             </div>
         )
 
