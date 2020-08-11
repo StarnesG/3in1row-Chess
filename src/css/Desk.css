@@ -1,0 +1,61 @@
+#all{
+    display: flex;
+}
+
+
+
+
+/* Desk,棋盘组件样式 */
+/* Desk,棋盘组件样式 */
+
+#app{  
+    width: 880px;
+    height: 680px;
+    margin: 80px auto 50px 40px ;
+}
+#desk{ 
+    width: 680px;
+    height: 680px;
+    margin: 0px;
+    padding: 0;
+    list-style:none;
+    float: left;
+    padding-left: 50px;  
+}
+.up{
+    width: 80px;
+    height: 100px;
+    margin: 20px 0px 425px 15px;
+    font-size: 30px;
+    float: left;
+}
+.down{
+    width: 80px;
+    height: 100px;
+    margin: 0 0 0 15px;
+    font-size: 30px;
+    float: left;
+}
+.arrow1{
+    width: 27px;
+    height: 60px;
+    margin: 15px 0 0 26px;
+    float: inline-end;
+}
+.arrow2{
+    width: 27px;
+    height: 60px;
+    margin: 15px 0 0 26px;
+    float: inline-end;
+    transform:rotate(180deg);
+}
+.box1{
+    width: 168px;
+    height: 168px;
+    border: 1px black solid;
+    float: left;
+}
+img{
+    width: 168px;
+    height: 168px;
+}

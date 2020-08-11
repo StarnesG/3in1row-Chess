@@ -1,0 +1,91 @@
+
+/* Battle,对战信息组件样式 */
+
+#battle{
+    background-image:url('../pic/bgi.jpg'); 
+    width: 440px;
+    height: 935px;
+    margin: 0 ; 
+    float: left;
+}
+.play{
+  
+    width: 340px;
+    height: 280px;
+    margin: 40px auto 0 40px;
+    border: 10px groove;
+    float: left;
+    list-style:none;
+    padding: 0;
+}
+.avator{
+    width: 130px;
+    height: 130px;
+    margin: 35px auto 0 25px;
+    border: black 1px solid;
+    float: left;
+}
+#avator{
+    width: 130px;
+    height: 130px
+}
+#getname{
+
+    width: 100px;
+    height: 10px;
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    text-align:center;
+    float: left;
+}
+
+.userid{
+    width: 100px;
+    height: 25px;
+    margin: 30px auto 0 39px;
+    border: black 1px solid;
+    float: left;
+    text-align:center;
+}
+.userinfo{
+    width: 120px;
+    height: 75px;
+    margin: 40px 25px 0 auto;
+    border: black 1px solid;
+    float: right;
+}
+.mate{
+    
+    width: 340px;
+    height: 100px;
+    margin: 37px 0px 0 40px;
+    border: 8px groove;
+    float: left;
+}
+#match{
+    width: 50px;
+    height: 50px;
+    margin: 25px 0px 0 30px;
+    float: left;
+}
+#pltext{
+    width: 200px;
+    height: 50px;
+    margin: 32px 0px 0 30px;
+    float: left;
+    font-size: 25px;
+}
+
+#button {
+    background-color: #91c76d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px 0 0 160px;
+}

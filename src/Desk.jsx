@@ -1,9 +1,10 @@
-import React from "react"
-import img0 from "./pic/none.jpg"
-import img1 from "./pic/black.jpg"
-import img2 from "./pic/white.jpg"
-import iarrow from "./pic/arrow.png"
-import blank from "./pic/blank.png"
+import React from "react";
+import "./css/Desk.css";
+import img0 from "./pic/none.jpg";
+import img1 from "./pic/black.jpg";
+import img2 from "./pic/white.jpg";
+import iarrow from "./pic/arrow.png";
+import blank from "./pic/blank.png";
 
 
 // var img = document.getElementsByTagName("img")
@@ -21,7 +22,6 @@ export default class Desk extends React.Component {
             flag: true,
             checkBwin: [],
             checkWwin: [],
-            // imgqi:document.getElementsByClassName('qizi'),
             endResults: {
                 arr1: [1, 2, 3],
                 arr2: [2, 3, 4],
@@ -56,9 +56,7 @@ export default class Desk extends React.Component {
 
     // 点击格子下棋
     handleClick(e) {
-        // if (this.props.playing) {
-            console.log("clear")
-            // var that = this
+ 
             e.preventDefault();
             var ind = e.target.getAttribute('data-key');
 
@@ -107,13 +105,14 @@ export default class Desk extends React.Component {
 
     checkWin = () => {
 
-
         if (this.checkTie(this.state.checkWwin)) {
             this.setState({
                 winState: 'Black Win!!'
             })
             alert('Black Win!!');
-            this.reLoadDesk();
+            this.reLoadDesk();  //重新加载棋盘
+            this.props.getDeskFinish(true) //游戏场次+1
+            this.props.getDeskWin(true) //胜利场次+1
             return
         }
         if (this.checkTie(this.state.checkBwin)) {
@@ -122,6 +121,7 @@ export default class Desk extends React.Component {
             })
             alert('White Win!!');
             this.reLoadDesk();
+            this.props.getDeskFinish(true)
             return
         }
         if (this.state.checkBwin.length === 8 && this.state.checkWwin.length === 8) {
@@ -130,29 +130,17 @@ export default class Desk extends React.Component {
             })
             alert('Draw');
             this.reLoadDesk();
+            this.props.getDeskFinish(true)
             return
         }
     }
 
-
+    //重新加载棋盘
     reLoadDesk() {
-
-        imgqizi[0].src = img0
-        imgqizi[1].src = img0
-        imgqizi[2].src = img0
-        imgqizi[3].src = img0
-        imgqizi[4].src = img0
-        imgqizi[5].src = img0
-        imgqizi[6].src = img0
-        imgqizi[7].src = img0
-        imgqizi[8].src = img0
-        imgqizi[9].src = img0
-        imgqizi[10].src = img0
-        imgqizi[11].src = img0
-        imgqizi[12].src = img0
-        imgqizi[13].src = img0
-        imgqizi[14].src = img0
-        imgqizi[15].src = img0
+        var i=0
+        for(i=0;i<16;i++)(
+            imgqizi[i].src=img0
+        )
 
         this.setState({
             flag: true,
@@ -160,10 +148,6 @@ export default class Desk extends React.Component {
             checkWwin: [],
             winState: ''
         })
-
-        // imgqizi.forEach((b)=>{
-        //     imgqizi[b].src=img0
-        // })
         return
     }
 
@@ -173,7 +157,7 @@ export default class Desk extends React.Component {
 
             <div id="app">
 
-                <div id="outer">
+                <div id="desk">
 
                     <div className="box1"><img className="qizi" alt="" data-key="0" onClick={this.handleClick.bind(this)} onLoad={this.checkWin} src={img0} /></div>
                     <div className="box1"><img className="qizi" alt="" data-key="1" onClick={this.handleClick.bind(this)} onLoad={this.checkWin} src={img0} /></div>
@@ -203,6 +187,7 @@ export default class Desk extends React.Component {
                 <div className="down">
                     <img className="arrow2" src={blank} alt="" /><div>&nbsp;白棋</div>
                 </div>
+                
             </div>
 
 
