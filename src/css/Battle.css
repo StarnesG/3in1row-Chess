@@ -22,7 +22,7 @@
     width: 130px;
     height: 130px;
     margin: 35px auto 0 25px;
-    border: black 1px solid;
+    /* border: black 1px solid; */
     float: left;
 }
 #avator{
@@ -44,16 +44,18 @@
     width: 100px;
     height: 25px;
     margin: 30px auto 0 39px;
-    border: black 1px solid;
+    /* border: black 1px solid; */
     float: left;
     text-align:center;
 }
 .userinfo{
     width: 120px;
-    height: 75px;
-    margin: 40px 25px 0 auto;
-    border: black 1px solid;
+    height: 100px;
+    margin: 23px 25px 0 auto;
+    /* border: black 1px solid; */
     float: right;
+    font-size: 17px;
+    text-align:center;
 }
 .mate{
     
