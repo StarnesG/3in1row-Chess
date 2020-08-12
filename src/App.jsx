@@ -5,7 +5,7 @@ import Userinfo from "./Userinfo";
 import bgI from "./pic/bgi.jpg";
 
 
-// var haha= prompt('欢迎来到这不是三子棋，请输入您的ID')
+var haha = prompt('欢迎来到这不是三子棋，请输入您的ID')
 
 // 头像图片地址
 const pic1 = require("./pic/1.png")
@@ -22,7 +22,7 @@ export default class App extends React.Component {
             matching: false,
             playing: 0,
             userinfo: {
-                name: "Player",
+                name: haha,
                 avator: [pic1, pic2, pic3, pic4],
                 playtimes: 0,
                 wintimes: 0,
@@ -31,7 +31,6 @@ export default class App extends React.Component {
 
         }
     }
-
 
 
     //获取battle点击匹配传的值
