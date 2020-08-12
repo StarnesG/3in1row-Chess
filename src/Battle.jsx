@@ -1,10 +1,6 @@
 import React from "react";
 import search from "./pic/search.png";
 import battle from "./pic/battle.png";
-// import pic1 from "./pic/1.png";
-// import pic2 from "./pic/2.png";
-// import pic3 from "./pic/3.png";
-// import pic4 from "./pic/4.png";
 import "./css/Battle.css";
 
 
@@ -15,8 +11,7 @@ export default class Battle extends React.Component {
       battleflag: true,
       matching: true,
       pltext: "开 始 游 戏",
-      word: "开始匹配",
-      here: "123"
+      word: "开始匹配"
     }
   }
 
@@ -31,16 +26,16 @@ export default class Battle extends React.Component {
         word: "游 戏 中",
         pltext: "正在寻找对手. . .",
       })
-      this.props.getBattle(true)
+      this.props.getBattle(false)
       img.src = search
-
+      this.props.match()
     } else {
       this.setState({
         battleflag: true,
         word: "开始匹配",
         pltext: "开 始 游 戏",
       })
-      this.props.getBattle(false)
+      this.props.getBattle(true)
       img.src = battle
     }
   }
@@ -52,10 +47,10 @@ export default class Battle extends React.Component {
      
         <ul className="play">
           <li>
-            <div className="avator"><img id="avator" src={this.props.userinfo.avator[this.props.avt]} alt="" /></div>
-            <div className='userinfo'>{this.props.userinfo.wintimes}</div>
-            <div className='userinfo'>{this.props.userinfo.playtimes}</div>
-            <div className="userid">{this.props.userinfo.name}</div>
+            <div className="avator"><img id="avator" src={this.props.avator[this.props.opponentinfo.avatorValue]} alt="" /></div>
+            <div className='userinfo'>{this.props.opponentinfo.wintimes}</div>
+            <div className='userinfo'>{this.props.opponentinfo.playtimes}</div>
+            <div className="userid">{this.props.opponentinfo.name}</div>
           </li>
         </ul>
 
@@ -67,7 +62,7 @@ export default class Battle extends React.Component {
 
         <ul className="play">
           <li>
-            <div className="avator"><img id="avator" src={this.props.userinfo.avator[this.props.avt]} alt="" /></div>
+            <div className="avator"><img id="avator" src={this.props.avator[this.props.userinfo.avatorValue]} alt="" /></div>
             <div className='userinfo'>我方{this.props.userinfo.wintimes}</div>
             <div className='userinfo'>{this.props.userinfo.playtimes}</div>
             <div className="userid">{this.props.userinfo.name}</div>

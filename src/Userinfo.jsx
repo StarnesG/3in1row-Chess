@@ -1,8 +1,4 @@
 import React from "react";
-import pic1 from "./pic/1.png";
-import pic2 from "./pic/2.png";
-import pic3 from "./pic/3.png";
-import pic4 from "./pic/4.png";
 import "./css/Userinfo.css";
 
 
@@ -15,7 +11,7 @@ export default class Userinfo extends React.Component {
     super(props);
     this.state = {
       value: "0",
-      buttonflag: true,
+      buttonflag: true
     }
   }
 
@@ -26,7 +22,6 @@ export default class Userinfo extends React.Component {
     this.setState({ value: e.target.value });
     for (i = 0; i < 4; i++) { userimg[i].style.display = "none" };
     userimg[e.target.value].style.display = "block";
-    this.props.getInfo(e.target.value)
   }
 
   // 确定后选择头像选项隐藏
@@ -34,6 +29,7 @@ export default class Userinfo extends React.Component {
     let select = document.getElementById('select');
     e.preventDefault();
     select.style.display = "none";
+    this.props.getInfo(this.state.value)
   }
 
   render() {
@@ -49,11 +45,11 @@ export default class Userinfo extends React.Component {
         </div>
         <div className="info">
 
-          <img className="profilepic" src={pic1} alt="avator" style={style1}></img>
-          <img className="profilepic" src={pic2} alt="avator" style={style2}></img>
-          <img className="profilepic" src={pic3} alt="avator" style={style3}></img>
-          <img className="profilepic" src={pic4} alt="avator" style={style4}></img>
-          <img className="profilepic" src={this.props.userinfo.avator[0]} alt="avator" style={style5}></img>
+          <img className="profilepic" src={this.props.avator[this.state.value]} alt="avator" style={style1}></img>
+          <img className="profilepic" src={this.props.avator[this.state.value]} alt="avator" style={style2}></img>
+          <img className="profilepic" src={this.props.avator[this.state.value]} alt="avator" style={style3}></img>
+          <img className="profilepic" src={this.props.avator[this.state.value]} alt="avator" style={style4}></img>
+          <img className="profilepic" src={this.props.avator[0]} alt="avator" style={style5}></img>
 
           <div id="username">{this.props.userinfo.name}</div>
 

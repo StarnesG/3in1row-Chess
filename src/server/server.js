@@ -18,12 +18,12 @@ wss.on('connection', function(connection) {
       var data; 
       //accepting only JSON messages 
       try { 
-         data = JSON.parse(message); 
+         data = JSON.parse(message);
+         console.log('get msg: ' + message) 
       } catch (e) { 
          console.log("Invalid JSON"); 
          data = {}; 
       }
-		  
       //switching type of the user message 
       switch (data.type) { 
          case "match":
