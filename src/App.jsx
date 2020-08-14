@@ -5,8 +5,7 @@ import Rtc from "./Rtc";
 import Userinfo from "./Userinfo";
 import bgI from "./pic/bgi.jpg";
 
-
-// var haha= prompt('欢迎来到这不是三子棋，请输入您的ID')
+var haha = prompt('欢迎来到这不是三子棋，请输入您的ID')
 
 // 头像图片地址
 const pic1 = require("./pic/1.png")
@@ -19,12 +18,13 @@ export default class App extends React.Component {
     constructor(props) {
         super(props)
         this.rtc = React.createRef();
+        this.desk = React.createRef();
         this.state = {
             // getavator: true,
             matching: false,
             avator: [pic1, pic2, pic3, pic4],
             userinfo: {
-                name: "Player",
+                name: haha,
                 playtimes: 0,
                 wintimes: 0,
                 avatorValue: 0
@@ -34,11 +34,9 @@ export default class App extends React.Component {
                 playtimes: 0,
                 wintimes: 0,
                 avatorValue: 0
-            },
-            deskState: {}
+            }
         }
     }
-
 
 
     //获取battle点击匹配传的值
@@ -59,7 +57,7 @@ export default class App extends React.Component {
     fromDeskFinish = (val) => {
         if (val) {
             this.setState({
-                userinofo: { playtimes: this.state.userinfo.playtimes += 1 }
+                userinfo: { playtimes: this.state.userinfo.playtimes += 1 }
             })
         }
     }
@@ -67,7 +65,7 @@ export default class App extends React.Component {
     fromDeskWin(val) {
         if (val) {
             this.setState({
-                userinofo: { wintimes: this.state.userinfo.wintimes += 1 }
+                userinfo: { wintimes: this.state.userinfo.wintimes += 1 }
             })
         }
     }
@@ -96,14 +94,16 @@ export default class App extends React.Component {
     fromDataChannel(val) {
         if(val) {
             if(val.type == 'desk') {
+                this.desk.current.opStep(val.data)
+            }
+            else if(val.type == 'info') {
+                console.log('val is ' + JSON.stringify(val))
                 this.setState({
-                    deskState: {...val.data}
+                    opponentinfo: {...val.data}
                 })
             }
             else {
-                this.state({
-                    opponentinfo: {...val.data}
-                })
+
             }  
         }
     }
@@ -120,7 +120,23 @@ export default class App extends React.Component {
 
     sendData(data) {
         let that = this;
-        that.rtc.current.sendData(data)
+        that.rtc.current.sendData(JSON.stringify(data))
+    }
+
+    RTCOpen() {
+        let that = this;
+        that.sendData({
+            type : 'info',
+            data : that.state.userinfo
+        })
+    }
+
+    step(val) {
+        let that = this;
+        that.sendData({
+            type : 'desk',
+            data : val
+        })
     }
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -129,11 +145,14 @@ export default class App extends React.Component {
         return (
             <div id="all" display={"flex"} background={bgI}>
                 <Userinfo getInfo={(val) => { this.fromInfo(val) }} userinfo={this.state.userinfo} avator={this.state.avator}></Userinfo>
-                <Desk getDeskFinish={(val) => { this.fromDeskFinish(val) }} getDeskWin={(val) => { this.fromDeskWin(val) }}></Desk>
+                <Desk ref={this.desk} getDeskFinish={(val) => { this.fromDeskFinish(val) }} getDeskWin={(val) => { this.fromDeskWin(val) }}
+                getStep={(val) => this.step(val)}>
+                </Desk>
                 <Battle getBattle={(val) => { this.fromBattle(val) }} userinfo={this.state.userinfo} opponentinfo={this.state.opponentinfo} 
                 avator={this.state.avator} match={() => {this.beginMatch()}}></Battle>
                 <Rtc ref={this.rtc} getOp={(val) => {this.fromOp(val)}} getRTCData={(val) => {this.fromDataChannel(val)}} 
-                username={this.state.userinfo.name} opponent={this.state.opponentinfo.name}>
+                username={this.state.userinfo.name} opponent={this.state.opponentinfo.name} RTCChannelOpen={() => this.RTCOpen()} 
+                RTCChannelClose={() => this.RTCClose()} setToBlack={() => {this.desk.current.setState({ flag : false, waitOp : false })}}>
                 </Rtc>
             </div>
         )

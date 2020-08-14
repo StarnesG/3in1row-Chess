@@ -48,8 +48,8 @@ export default class Battle extends React.Component {
         <ul className="play">
           <li>
             <div className="avator"><img id="avator" src={this.props.avator[this.props.opponentinfo.avatorValue]} alt="" /></div>
-            <div className='userinfo'>{this.props.opponentinfo.wintimes}</div>
-            <div className='userinfo'>{this.props.opponentinfo.playtimes}</div>
+            <div className='userinfo'><br/> 对方游戏局数 <br/>{this.props.opponentinfo.wintimes}</div>
+            <div className='userinfo'><br/> 对方胜利场次 <br/>{this.props.opponentinfo.playtimes}</div>
             <div className="userid">{this.props.opponentinfo.name}</div>
           </li>
         </ul>
@@ -63,8 +63,8 @@ export default class Battle extends React.Component {
         <ul className="play">
           <li>
             <div className="avator"><img id="avator" src={this.props.avator[this.props.userinfo.avatorValue]} alt="" /></div>
-            <div className='userinfo'>我方{this.props.userinfo.wintimes}</div>
-            <div className='userinfo'>{this.props.userinfo.playtimes}</div>
+            <div className='userinfo'><br/> 我方游戏局数 <br/>{this.props.userinfo.wintimes}</div>
+            <div className='userinfo'><br/> 我方胜利场次 <br/>{this.props.userinfo.playtimes}</div>
             <div className="userid">{this.props.userinfo.name}</div>
           </li>
         </ul>

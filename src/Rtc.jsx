@@ -33,7 +33,8 @@ export default class Rtc extends React.Component {
             that.handleOffer(data.offer, data.source); 
             break; 
         case "answer": 
-            that.handleAnswer(data.answer); 
+            that.handleAnswer(data.answer);
+            that.props.setToBlack(); 
             break; 
         //when a remote peer sends an ice candidate to us 
         case "candidate": 
@@ -93,13 +94,18 @@ export default class Rtc extends React.Component {
     } 
 
     //when we receive a message from the other peer, return it to parent component 
+    that.state.rtcDataChannel.onopen = function (event) { 
+      console.log('rtcDataChannel opened')
+      that.props.RTCChannelOpen() 
+    } 
     that.state.rtcDataChannel.onmessage = function (event) { 
       console.log('msg via rtcDataChannel: ' + event.data)
-      that.props.getRTCData(event.data) 
+      that.props.getRTCData(JSON.parse(event.data)) 
     } 
 
     that.state.rtcDataChannel.onclose = function () { 
       console.log("data channel is closed"); 
+      that.props.RTCChannelClose()
     }
 
     that.state.rtcConnection.createOffer(function (offer) { 
@@ -151,13 +157,19 @@ export default class Rtc extends React.Component {
       } 
 
       //when we receive a message from the other peer, return it to parent 
+      that.state.rtcDataChannel.onopen = function (event) { 
+        console.log('rtcDataChannel opened')
+        that.props.RTCChannelOpen() 
+      } 
+
       that.state.rtcDataChannel.onmessage = function (event) {
         console.log('msg via rtcDataChannel: ' + event.data) 
-        that.props.getRTCData(event.data) 
+        that.props.getRTCData(JSON.parse(event.data)); 
       } 
 
       that.state.rtcDataChannel.onclose = function () { 
-        console.log("data channel is closed"); 
+        console.log("data channel is closed");
+        that.props.RTCChannelClose() 
       }
     }
     that.state.rtcConnection.setRemoteDescription(new RTCSessionDescription(offer)); 
@@ -218,7 +230,7 @@ export default class Rtc extends React.Component {
   }
 
   sendData(data) {
-    this.rtcDataChannel.send(data)
+    this.state.rtcDataChannel.send(data)
   }
 
   render() {

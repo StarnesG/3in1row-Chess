@@ -5,6 +5,7 @@ import img1 from "./pic/black.jpg";
 import img2 from "./pic/white.jpg";
 import iarrow from "./pic/arrow.png";
 import blank from "./pic/blank.png";
+import { useImperativeHandle } from "react";
 
 
 // var img = document.getElementsByTagName("img")
@@ -20,6 +21,7 @@ export default class Desk extends React.Component {
         this.state = {
             playing: false,
             flag: true,
+            waitOp: true,
             checkBwin: [],
             checkWwin: [],
             endResults: {
@@ -58,6 +60,10 @@ export default class Desk extends React.Component {
     handleClick(e) {
  
             e.preventDefault();
+            if(this.state.waitOp) {
+                alert('等待对手...')
+                return 0
+            }
             var ind = e.target.getAttribute('data-key');
 
 
@@ -65,22 +71,41 @@ export default class Desk extends React.Component {
 
                 this.state.checkBwin.push(parseInt(ind) + 1);
                 imgqizi[ind].src = img1; //图片切换
-                blackarrow[0].src = blank; //箭头切换
-                whitearrow[0].src = iarrow;
-                this.setState({ flag: false })
-
+                blackarrow[0].src = (blackarrow[0].src == iarrow ? blank : iarrow); //箭头切换
+                whitearrow[0].src = (whitearrow[0].src == iarrow ? blank : iarrow);
+                this.setState({ waitOp : true })
+                this.props.getStep(ind)
             }
             else if (!this.state.flag && a.test(imgqizi[ind].src)) {
 
                 this.state.checkWwin.push(parseInt(ind) + 1);
 
                 imgqizi[ind].src = img2;
-                blackarrow[0].src = iarrow;
-                whitearrow[0].src = blank;
-                this.setState({ flag: true })
+                blackarrow[0].src = (blackarrow[0].src == iarrow ? blank : iarrow);
+                whitearrow[0].src = (whitearrow[0].src == iarrow ? blank : iarrow);
+                this.setState({ waitOp : true })
+                this.props.getStep(ind)
             }
         // }
 
+    }
+
+    //收到对手数据，下对手的那一步
+    opStep(ind) {
+        if (!this.state.flag && a.test(imgqizi[ind].src)) {
+            this.state.checkBwin.push(parseInt(ind) + 1);
+            imgqizi[ind].src = img1; //图片切换
+            blackarrow[0].src = (blackarrow[0].src == iarrow ? blank : iarrow); //箭头切换
+            whitearrow[0].src = (whitearrow[0].src == iarrow ? blank : iarrow);
+            this.setState({ waitOp : false })
+        }
+        else if (this.state.flag && a.test(imgqizi[ind].src)) {
+            this.state.checkWwin.push(parseInt(ind) + 1);
+            imgqizi[ind].src = img2;
+            blackarrow[0].src = (blackarrow[0].src == iarrow ? blank : iarrow);
+            whitearrow[0].src = (whitearrow[0].src == iarrow ? blank : iarrow);
+            this.setState({ waitOp : false })
+        }
     }
 
 
@@ -112,8 +137,10 @@ export default class Desk extends React.Component {
             alert('Black Win!!');
             this.reLoadDesk();  //重新加载棋盘
             this.props.getDeskFinish(true) //游戏场次+1
-            this.props.getDeskWin(true) //胜利场次+1
-            return
+            if(this.state.flag) {
+                this.props.getDeskWin(true) //胜利场次+1
+            }
+            return 0
         }
         if (this.checkTie(this.state.checkBwin)) {
             this.setState({
@@ -122,7 +149,10 @@ export default class Desk extends React.Component {
             alert('White Win!!');
             this.reLoadDesk();
             this.props.getDeskFinish(true)
-            return
+            if(!(this.state.flag)) {
+                this.props.getDeskWin(true) //胜利场次+1
+            }
+            return 0
         }
         if (this.state.checkBwin.length === 8 && this.state.checkWwin.length === 8) {
             this.setState({
@@ -131,19 +161,31 @@ export default class Desk extends React.Component {
             alert('Draw');
             this.reLoadDesk();
             this.props.getDeskFinish(true)
-            return
+            return 0
         }
     }
 
     //重新加载棋盘
     reLoadDesk() {
         var i=0
+        var that = this
         for(i=0;i<16;i++)(
             imgqizi[i].src=img0
         )
 
+        if(this.state.flag) {
+            this.setState({
+                flag : false,
+                waitOp : false
+            })
+        }
+        else {
+            this.setState({
+                flag : true,
+                waitOp : true
+            })
+        }
         this.setState({
-            flag: true,
             checkBwin: [],
             checkWwin: [],
             winState: ''
@@ -182,10 +224,10 @@ export default class Desk extends React.Component {
                 </div>
 
                 <div className="up">
-                    <div>&nbsp;黑棋</div> <img className="arrow1" src={iarrow} alt="" />
+        <div>&nbsp;{(this.state.flag ? '白棋' : '黑棋')}</div> <img className="arrow1" src={(this.state.flag ? iarrow : blank)} alt="" />
                 </div>
                 <div className="down">
-                    <img className="arrow2" src={blank} alt="" /><div>&nbsp;白棋</div>
+                    <img className="arrow2" src={(this.state.flag ? blank : iarrow)} alt="" /><div>&nbsp;{(this.state.flag ? '黑棋' : '白棋')}</div>
                 </div>
                 
             </div>
