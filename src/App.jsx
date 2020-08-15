@@ -53,11 +53,19 @@ export default class App extends React.Component {
         })
     }
 
+    fromUsername(val) {
+        this.setState({
+            userinfo: {...this.state.userinfo, name: val}
+        })
+       
+    }
+
     //获取desk游戏胜利时传的值
     fromDeskFinish = (val) => {
         if (val) {
             this.setState({
-                userinfo: { playtimes: this.state.userinfo.playtimes += 1 }
+                userinfo: {  ...this.state.userinfo,playtimes: this.state.userinfo.playtimes+1 }
+
             })
         }
     }
@@ -65,7 +73,7 @@ export default class App extends React.Component {
     fromDeskWin(val) {
         if (val) {
             this.setState({
-                userinfo: { wintimes: this.state.userinfo.wintimes += 1 }
+                userinfo: {  ...this.state.userinfo,wintimes: this.state.userinfo.wintimes+1 }
             })
         }
     }

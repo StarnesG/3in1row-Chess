@@ -3,7 +3,7 @@ import "./css/Userinfo.css";
 
 
 var style1 = { display: "block" }, style2 = { display: "none" }, style3 = { display: "none" },
-  style4 = { display: "none" }, style5 = { display: "none" }, style7 = { display: "block" };
+  style4 = { display: "none" }, style5 = { display: "none" },style6 = { display: "none" }, style7 = { display: "block" }, style8 = { display: "block" };
 
 
 export default class Userinfo extends React.Component {
@@ -32,6 +32,13 @@ export default class Userinfo extends React.Component {
     this.props.getInfo(this.state.value)
   }
 
+  changeName(){
+    var changeName=prompt('qiii');
+    this.props.getUsername(changeName);
+    style6 = { display: "block" };
+    style8 = { display: "none" }
+  }
+
   render() {
 
     return (
@@ -51,7 +58,8 @@ export default class Userinfo extends React.Component {
           <img className="profilepic" src={this.props.avator[this.state.value]} alt="avator" style={style4}></img>
           <img className="profilepic" src={this.props.avator[0]} alt="avator" style={style5}></img>
 
-          <div id="username">{this.props.userinfo.name}</div>
+          <div id="username" style={style6}>{this.props.userinfo.name}</div>
+          <div id='getname' style={style8}><button onClick={ this.changeName.bind(this) }>点击输入ID</button></div>
 
           <table id="employeeTable">
             <thead>

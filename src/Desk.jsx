@@ -135,11 +135,11 @@ export default class Desk extends React.Component {
                 winState: 'Black Win!!'
             })
             alert('Black Win!!');
-            this.reLoadDesk();  //重新加载棋盘
             this.props.getDeskFinish(true) //游戏场次+1
             if(this.state.flag) {
                 this.props.getDeskWin(true) //胜利场次+1
             }
+            this.reLoadDesk();  //重新加载棋盘
             return 0
         }
         if (this.checkTie(this.state.checkBwin)) {
@@ -147,11 +147,11 @@ export default class Desk extends React.Component {
                 winState: 'White Win!!'
             })
             alert('White Win!!');
-            this.reLoadDesk();
             this.props.getDeskFinish(true)
             if(!(this.state.flag)) {
                 this.props.getDeskWin(true) //胜利场次+1
             }
+            this.reLoadDesk();
             return 0
         }
         if (this.state.checkBwin.length === 8 && this.state.checkWwin.length === 8) {
@@ -159,8 +159,8 @@ export default class Desk extends React.Component {
                 winState: 'Draw'
             })
             alert('Draw');
-            this.reLoadDesk();
             this.props.getDeskFinish(true)
+            this.reLoadDesk();
             return 0
         }
     }
